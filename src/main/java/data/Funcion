@@ -1,0 +1,26 @@
+DECLARE pv_nombre VARCHAR2(20);
+    vv_ciudad VARCHAR2(20);
+    BEGIN
+        pv_nombre := 'Laia Garcia';
+        SELECT  A.ALUM.DIREC.CIUDAD INTO vv_ciudad FROM ALUMNOS2 A WHERE A.ALUM.NOMBRE = pv_nombre;
+        IF (vv_ciudad is null ) THEN
+            vv_ciudad :='Sin datos';
+            DBMS_OUTPUT.PUT_LINE(vv_ciudad);
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('La ciudad es: '||vv_ciudad);
+        end if;
+end;
+
+creacion de funcion
+
+create or replace FUNCTION FUN_VAR_CIUDAD (pv_nombre VARCHAR2) RETURN VARCHAR2 AS
+    vv_ciudad VARCHAR2(20);
+    BEGIN
+        SELECT  A.ALUM.DIREC.CIUDAD INTO vv_ciudad FROM ALUMNOS2 A WHERE A.ALUM.NOMBRE = pv_nombre;
+        IF (vv_ciudad is null ) THEN
+            vv_ciudad :='Sin datos';
+            RETURN (vv_ciudad);
+        ELSE
+            RETURN ('La ciudad es: '||vv_ciudad);
+        end if;
+end;
